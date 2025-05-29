@@ -1,0 +1,13 @@
+python F5-TTS/src/f5_tts/train/datasets/prepare_csv_wavs.py NURC-SP_ENTOA_TTS/prosodic F5-TTS/data/ENTOA_TTS
+
+accelerate config
+
+cd F5-TTS/src/f5_tts/configs
+
+nano F5TTS_v1_Base.yaml
+
+accelerate launch F5-TTS/src/f5_tts/train/train.py --config-name F5TTS_v1_Base.yaml
+
+accelerate launch F5-TTS/src/f5_tts/train/train.py
+
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 100.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 23.80 GiB is allocated by PyTorch, and 326.13 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
