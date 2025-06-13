@@ -4,13 +4,13 @@ hydra:
 
 datasets:
   name: ENTOA_TTS  # dataset name, troca de Emilia_ZH_EN para ENTOA_TTS
-  batch_size_per_gpu: 12800  # 8 GPUs, 8 * 38400 = 307200, 38400 para 12800
+  batch_size_per_gpu: 800  # 8 GPUs, 8 * 38400 = 307200, 38400 para 800
   batch_size_type: frame  # frame | sample
-  max_samples: 64  # max sequences per batch if use frame-wise batch_size. we set 32 for small models, 64 for base models
+  max_samples: 32  # max sequences per batch if use frame-wise batch_size. we set 32 for small models, 64 for base models, mudei para 32
   num_workers: 1 # 16 para 4
 
 optim:
-  epochs: 11
+  epochs: 1000
   learning_rate: 7.5e-5
   num_warmup_updates: 20000  # warmup updates
   grad_accumulation_steps: 1  # note: updates = steps / grad_accumulation_steps

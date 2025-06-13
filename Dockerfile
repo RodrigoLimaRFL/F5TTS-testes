@@ -3,11 +3,10 @@ FROM nvcr.io/nvidia/pytorch:24.12-py3
 WORKDIR /workspace
 
 RUN apt-get update && apt-get install -y \
-    && apt-get install -y python3 \
-    && apt-get install -y python3-pip \
-    && apt-get install -y python3-pip \
-    && apt-get install -y git \
-    && apt-get install -y ffmpeg \
+    python3 \
+    python3-pip \
+    git \
+    ffmpeg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,6 +25,8 @@ COPY NURC-SP_ENTOA_TTS/test /workspace/NURC-SP_ENTOA_TTS/test
 RUN python /workspace/F5-TTS/src/f5_tts/train/datasets/prepare_csv_wavs.py /workspace/NURC-SP_ENTOA_TTS/prosodic /workspace/F5-TTS/data/ENTOA_TTS_pinyin
 
 RUN python /workspace/F5-TTS/src/f5_tts/train/datasets/prepare_csv_wavs.py NURC-SP_ENTOA_TTS/prosodic /workspace/F5-TTS/data/ENTOA_TTS
+
+COPY F5TTS_v1_Base.yaml /workspace/F5-TTS/ckpts/F5TTS_v1_Base.yaml
 
 COPY run.sh /workspace/run.sh
 
