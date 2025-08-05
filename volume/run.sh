@@ -27,12 +27,12 @@ wandb login 040dc38adce9abb4e0206b4885c087efe0d85ffd && \
 accelerate launch $ACCELERATE_ARGS /workspace/F5-TTS/src/f5_tts/train/finetune_cli.py \
   --exp_name F5TTS_v1_Base \
   --learning_rate 1e-05 \
-  --batch_size_per_gpu 32 \
-  --batch_size_type frame \
-  --max_samples 24 \
+  --batch_size_per_gpu 28 \
+  --batch_size_type sample \
+  --max_samples 20 \
   --grad_accumulation_steps 1 \
   --max_grad_norm 1 \
-  --epochs 32 \
+  --epochs 2550 \
   --num_warmup_updates 1129 \
   --save_per_updates 500 \
   --keep_last_n_checkpoints 2 \
