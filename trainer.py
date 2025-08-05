@@ -32,7 +32,7 @@ class Trainer:
         num_warmup_updates=20000,
         save_per_updates=1000,
         keep_last_n_checkpoints: int = -1,  # -1 to keep all, 0 to not save intermediate, > 0 to keep last N checkpoints
-        checkpoint_path="../../../../F5-TTS-pt-br/pt-br/model_last.pt",
+        checkpoint_path=None,
         batch_size_per_gpu=32,
         batch_size_type: str = "sample",
         max_samples=32,

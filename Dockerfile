@@ -2,6 +2,8 @@ FROM nvcr.io/nvidia/pytorch:24.12-py3
 
 WORKDIR /workspace
 
+COPY F5-TTS /workspace/F5-TTS
+
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
@@ -12,22 +14,16 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install --upgrade pip
 
-COPY F5-TTS /workspace/F5-TTS
-
 RUN pip install --upgrade torchvision
+
+RUN mkdir -p /workspace/F5-TTS/ckpts
 
 RUN pip install -e /workspace/F5-TTS
 
-COPY F5-TTS-pt-br /workspace/F5-TTS-pt-br
-COPY NURC-SP_ENTOA_TTS/prosodic /workspace/NURC-SP_ENTOA_TTS/prosodic
-COPY NURC-SP_ENTOA_TTS/test /workspace/NURC-SP_ENTOA_TTS/test
+#COPY common-voice /workspace/common-voice
 
-RUN python /workspace/F5-TTS/src/f5_tts/train/datasets/prepare_csv_wavs.py /workspace/NURC-SP_ENTOA_TTS/prosodic /workspace/F5-TTS/data/ENTOA_TTS_pinyin
+#COPY common-voice_v1_Base.yaml /workspace/F5-TTS/ckpts/common-voice_v1_Base.yaml
 
-RUN python /workspace/F5-TTS/src/f5_tts/train/datasets/prepare_csv_wavs.py NURC-SP_ENTOA_TTS/prosodic /workspace/F5-TTS/data/ENTOA_TTS
+COPY run.sh /workspace/F5-TTS/ckpts/run.sh
 
-COPY F5TTS_v1_Base.yaml /workspace/F5-TTS/ckpts/F5TTS_v1_Base.yaml
-
-COPY run.sh /workspace/run.sh
-
-CMD ["sh", "/workspace/run.sh"]
+CMD ["sh", "/workspace/F5-TTS/ckpts/run.sh"]
