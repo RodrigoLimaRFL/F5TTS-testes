@@ -26,18 +26,20 @@ echo "-------------------------------"
 wandb login 040dc38adce9abb4e0206b4885c087efe0d85ffd && \
 accelerate launch $ACCELERATE_ARGS /workspace/F5-TTS/src/f5_tts/train/finetune_cli.py \
   --exp_name F5TTS_v1_Base \
-  --learning_rate 1e-05 \
-  --batch_size_per_gpu 28 \
+  --learning_rate 7.5e-05 \
+  --batch_size_per_gpu 32 \
   --batch_size_type sample \
-  --max_samples 20 \
+  --max_samples 24 \
   --grad_accumulation_steps 1 \
   --max_grad_norm 1 \
-  --epochs 2550 \
+  --epochs 32 \
   --num_warmup_updates 1129 \
-  --save_per_updates 500 \
+  --save_per_updates 1000 \
   --keep_last_n_checkpoints 2 \
-  --last_per_updates 500 \
+  --last_per_updates 1000 \
   --dataset_name cv_pt-br \
+  --finetune \
+  --pretrain /workspace/F5-TTS/f5tts_v1/model_1250000.safetensors \
   --tokenizer pinyin \
   --logger wandb \
   --log_samples
