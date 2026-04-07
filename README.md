@@ -26,12 +26,12 @@ docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 --r
 
 ## Descrição
 
-Primeiro, o F5-TTS foi treinado com o dataset CML_TTS por 800 épocas.
+Primeiro, o F5-TTS foi treinado com o dataset CML_TTS por 800 épocas (treino-cml_tts/7.5e-05 lr/model_last.pt).
 
-Depois, foi finetunado com o dataset ENTOA_TTS. Foram treinados dois checkpoints:
+Depois, após transformar o checkpoint em .safetensors, foi finetunado com o dataset ENTOA_TTS. Foram treinados dois checkpoints:
 
 1- Um treinado com o subset 'automatic', feito com segmentação automática do whisper-large-v2.
 
-2- Um treinado com o subset 'prosodic', feito com segmentação prosódica feita manualmentee
+2- Um treinado com o subset 'prosodic', feito com segmentação prosódica feita manualmente.
 
 O link para os checkpoints é [{link}](https://huggingface.co/RodrigoLimaRFL/f5tts-pt-br)
