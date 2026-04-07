@@ -17,7 +17,11 @@ echo "-------------------------------"
 echo "Preparando os dados..."
 echo "-------------------------------"
 
-python /workspace/F5-TTS/src/f5_tts/train/datasets/prepare_csv_wavs.py /workspace/F5-TTS/data/CML_TTS_PT_pinyin /workspace/F5-TTS/data/CML_TTS_PT_pinyin
+mkdir -p /workspace/F5-TTS/data/entoa_prosodic_pinyin
+
+tar xvf /workspace/wavs.tar -C /workspace/F5-TTS/data/entoa_prosodic_pinyin/
+
+python /workspace/F5-TTS/src/f5_tts/train/datasets/prepare_csv_wavs.py /workspace/F5-TTS/data/entoa_prosodic_pinyin /workspace/F5-TTS/data/entoa_prosodic_pinyin
 
 echo "-------------------------------"
 echo "Iniciando o treinamento..."
@@ -26,22 +30,24 @@ echo "-------------------------------"
 wandb login 040dc38adce9abb4e0206b4885c087efe0d85ffd && \
 accelerate launch $ACCELERATE_ARGS /workspace/F5-TTS/src/f5_tts/train/finetune_cli.py \
   --exp_name F5TTS_v1_Base \
-  --learning_rate 1e-05  \
-  --batch_size_per_gpu 16 \
+  --learning_rate 7.5e-05  \
+  --batch_size_per_gpu 20 \
   --batch_size_type sample \
   --max_samples 64 \
   --grad_accumulation_steps 1 \
   --max_grad_norm 1 \
-  --epochs 853 \
+  --epochs 800 \
   --num_warmup_updates 1688 \
   --save_per_updates 5000 \
   --keep_last_n_checkpoints 2 \
   --last_per_updates 5000 \
-  --dataset_name CML_TTS_PT \
+  --dataset_name entoa_prosodic \
+  --finetune \
+  --pretrain /workspace/F5-TTS/ckpts/model_last.safetensors  \
   --tokenizer pinyin \
   --logger wandb \
   --log_samples
 
   
   #--finetune \
-  #--pretrain /workspace/F5-TTS/f5tts_v1/model_1250000.safetensors \
+  #--pretrain /workspace/F5-TTS/ckpts/model_last.pt  \
